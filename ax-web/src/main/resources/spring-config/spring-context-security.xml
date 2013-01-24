@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+    
+    <http pattern="/public/**" security="none"/>
+   
+    
+    <http pattern="/login.jsp*" security="none"/>
+    <http pattern="/index.jsp*" security="none"/>
+    <http pattern="/sso.jsp*" security="none"/>
+    
+    <http pattern="/page/layout/**" security="none"/>
+    <http pattern="/page/common/**" security="none"/>
+    <http pattern="/page/error/**" security="none"/>
+    <http pattern="/page/main/**" security="none"/>
+    <http pattern="/page/login/**" security="none"/>
+    <http pattern="/page/access/**" security="none"/>
+    
+    
+    <http pattern="/login/**" security="none"/>
+    <http pattern="/right-space/**" security="none"/>
+    <http pattern="/roles/**" security="none"/>
+    <http pattern="/authorization/**" security="none"/>
+    <http pattern="/users/**" security="none"/>
+    <http pattern="/access/**" security="none"/>
+    <http pattern="/order/**" security="none"/>
+    <!-- 
+    <http pattern="/right/**" security="none"/>
+    
+     -->
+    <http auto-config="true" use-expressions="true">
+		<form-login login-page='/index.jsp' default-target-url='/work' authentication-failure-url="/access/login"/>
+		<logout invalidate-session="true" logout-success-url="/" logout-url="/j_spring_security_logout"/>
+		<remember-me />  
+		<session-management invalid-session-url="/timeout.jsp">  
+           <concurrency-control max-sessions="10" error-if-maximum-exceeded="true" />  
+        </session-management>  
+		
+		<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/> 
+		<access-denied-handler error-page="/page/error/no-right.jsp"/>
+	</http>
+	
+	<!-- My security Interceptor -->
+    <beans:bean id="myFilter" 
+	  class="com.soar.ax.service.security.MyFilterSecurityInterceptor">
+	  <beans:property name="authenticationManager" 
+	   ref="authenticationManager"/>
+	  <beans:property name="accessDecisionManager" 
+	   ref="myAccessDecisionManager"/>
+	  <beans:property name="securityMetadataSource" 
+	   ref="mySecurityMetadataSource"/>
+    </beans:bean>
+    
+   
+    
+   <authentication-manager alias="authenticationManager">
+	  <authentication-provider user-service-ref="myUserDetailsService">
+	  
+	  </authentication-provider>
+	</authentication-manager>
+	 <!-- 
+	  <authentication-manager alias="authenticationManager">
+	  <authentication-provider ref='myAuthenticationProvider'/>
+	</authentication-manager>
+	
+	
+	  <authentication-manager alias="authenticationManager">
+	  <authentication-provider user-service-ref="userDetailsManager">
+	    <password-encoder ref="passwordEncoder">
+	    <salt-source user-property="username" />
+	   </password-encoder>
+	  </authentication-provider>
+	</authentication-manager>
+  
+	 用户详细信息管理：数据源、用户缓存（通过数据库管理用户、角色、权限、资源）。 
+	      <bean:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	 
+	 <bean:bean id="userDetailsManager" class="com.soar.ax.service.security.MyUserDetailsService"/>
+	  
+
+    
+    <bean:bean id="mySecurityMetadataSource" 
+	  class="com.soar.ax.service.security.MyInvocationSecurityMetadataSourceService"/>
+	  
+    
+    <beans:bean id="myAccessDecisionManager" 
+	  class="com.soar.ax.service.security.MyAccessDecisionManager"/>
+	  -->
+ 
+    <!-- 
+    <authentication-manager>
+		<authentication-provider>
+		<user-service>
+		<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+		<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+		</user-service>
+		</authentication-provider>
+    </authentication-manager>
+     <authentication-manager alias="authenticationManager">
+	  <authentication-provider user-service-ref="userDetailsManager">
+	    <password-encoder ref="passwordEncoder">
+	    <salt-source user-property="username" />
+	   </password-encoder>
+	  </authentication-provider>
+	</authentication-manager>
+     -->
+	
+</beans:beans>
