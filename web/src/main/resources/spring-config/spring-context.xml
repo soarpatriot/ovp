@@ -45,22 +45,7 @@
 			</property>
 	</bean>
 	
-	
-	<!--
-	
-    
-    <bean id="myBatisSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="ovpDataSource" />
-        <property name="configLocation" value="classpath:mybatis-config/mybatis.xml" />
-        <property name="mapperLocations" value="classpath*:mybatis-config/mybatis-*.xml" />
-    </bean>
-    
-     baseIbatisDao 
-    <bean id="ovpMyBatisGeneralDao" class="com.soar.ax.dao.MyBatisGeneralDao">
-          <property name="sqlSessionFactory"><ref bean="myBatisSqlSessionFactory"/></property>
-    </bean>
-	-->
-	
+
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource">
             <ref bean="dataSource"/>

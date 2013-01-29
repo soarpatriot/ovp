@@ -3,7 +3,6 @@
  */
 package com.soar.ax.controller.ovp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.json.JSONArray;
@@ -58,6 +57,18 @@ public class OrderController extends BaseController{
 		orderPage.setRows(lineItems);
 		
 		return orderPage;
+	}
+
+
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
 	}
 	
 	
