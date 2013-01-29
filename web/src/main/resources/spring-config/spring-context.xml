@@ -26,11 +26,19 @@
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:/database-config.properties</value>
+				<value>classpath:/heroku-postgresdb.properties</value>
 			</list>
 		</property>
 	</bean>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="${jdbc.driver}" />
+	    <property name="url" value="${jdbc.url}" />
+	    <property name="username" value="${jdbc.username}" />
+	    <property name="password" value="${jdbc.password}" />
+	   
+    </bean>
+    <!-- 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 			<property name="driverClassName">
 			      <value>${jdbc.driver}</value>
 			</property>
@@ -43,7 +51,12 @@
 			<property name="password">
 			      <value>${jdbc.password}</value>
 			</property>
+			<property name="ssl">
+			      <value>${jdbc.ssl}</value>
+			</property>
 	</bean>
+     -->
+	
 	
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
