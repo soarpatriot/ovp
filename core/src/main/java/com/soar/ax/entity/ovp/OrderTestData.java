@@ -35,6 +35,17 @@ public class OrderTestData {
 		
 		return lineItemColumns;
 	}
+	
+	public static List<Column> reportColumns(){
+		//		//{field:'listprice',title:'List Price',width:80,align:'right',sortable:true},
+		List<Column> allColumns = new ArrayList<Column>();
+		allColumns.addAll(lineItemColumn());
+		allColumns.addAll(deliveryColumn());
+		
+		
+		return allColumns;
+	}
+	
 	public static List<Column> deliveryColumn(){
 		List<Column> delivery = new ArrayList<Column>();
 		

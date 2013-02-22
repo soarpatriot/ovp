@@ -34,14 +34,23 @@ public class OrderController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(Model model) {
+		List<Column> orderColumns = OrderTestData.reportColumns();
+		String reportColumns = JSONArray.fromObject(orderColumns).toString();
+		System.out.println("reportColumns:"+reportColumns);
+		
 		List<Column> lineItemColumns = OrderTestData.lineItemColumn();
 		String lineItem = JSONArray.fromObject(lineItemColumns).toString();
+		System.out.println("lineItem:"+lineItem);
 		
 		List<Column> deliveryColumns = OrderTestData.deliveryColumn();
 		String delivery = JSONArray.fromObject(deliveryColumns).toString();
 		
+		model.addAttribute("reportColumns", reportColumns);
+		
 		model.addAttribute("lineItem", lineItem);
 		model.addAttribute("delivery", delivery);
+		model.addAttribute("shiping", delivery);
+		model.addAttribute("serial", delivery);
 		
 		return "order/grid";
 	}

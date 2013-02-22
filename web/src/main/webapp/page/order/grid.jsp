@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="/page/common/taglibs.jsp"%>
 <html>
 <head>
@@ -14,14 +15,73 @@
 		$(function(){
 			//list-data
 			//orderHeaderUrl:'${ctx}/public/temp/datagrid_data.json',
+			
+			
 		    var orderGrid = {
+		        allHearder:${reportColumns},
 		    	lineItemHeader:${lineItem},
 		    	deliveryHeader:${delivery},
 		    	orderHeaderUrl:'${ctx}/order/list.json',
 		    	lineItemUrl: '${ctx}/public/temp/treegrid_data2.json',
 		    	shipUrl: '${ctx}/public/temp/treegrid_data2.json'
 		    };
-		    esayGird(orderGrid);
+		    
+		    OvpGrid.hiearchyGrid(orderGrid);
+		    
+		    var flatGirdSetting = {
+		    	allHearder:${reportColumns},
+		    	lineItemHeader:${lineItem},
+		    	deliveryHeader:${delivery},
+		    	orderHeaderUrl:'${ctx}/order/list.json',
+		    	lineItemUrl: '${ctx}/public/temp/treegrid_data2.json',
+		    	shipUrl: '${ctx}/public/temp/treegrid_data2.json'
+		    };
+		   
+		     
+		    $("#flat-radio").click(function(){
+		    	$.ajax({
+				    type: "POST",
+				    url: "${ctx}/order/list.json",
+				    success: success
+				});
+				function success(allTreeData){
+					var records = flatData(allTreeData);
+					//distinct the json records
+					records = _.uniq(records);
+					console.log("total flat:"+ JSON.stringify(records));
+					$("#data-grid").empty();
+		    		OvpGrid.init("orders-table","data-grid");
+		    		flatGirdSetting.flatData = records;
+		    		OvpGrid.flatGrid(flatGirdSetting);
+				};
+		    });
+		    
+		    /**convert hiearchy data to flat data**/
+		    var flatData = function(allTreeData){
+		        var n = 0;
+		        var data = _.clone(allTreeData.rows);
+		        var rows = new Array();　
+		    	
+		    	_.each(data,function(lineItem,i){
+		    	
+		    		if(!_.isNull(lineItem.deliveries)){
+		    			var deliveries = _.clone(lineItem.deliveries);
+		    			delete lineItem.deliveries;
+		    			
+		    			_.each(deliveries,function(delivery,i){
+		    				var records = _.extend(lineItem,delivery);
+		    				rows.push(records);
+		    			});
+		    			
+		    		}else{
+		    		
+		    			delete lineItem.deliveries;
+		    			rows.push(lineItem);
+		    		}
+		    		
+		    	});
+		    	return rows
+		    };
 		});
 	</script>
 
@@ -33,22 +93,23 @@
        		<form class="form-horizontal">
        		   <div class="controls">
 	       		   	<label class="radio">
-					  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+					  <input type="radio" name="optionsRadios" id="hiearchy-radio" value="option2">
 					   Hiearchy Style
 					</label>
 					<label class="radio">
-					  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+					  <input type="radio" name="optionsRadios" id="flat-radio" value="option2">
 					   Flat Style
 					</label>
        		   </div>
-       		   
-     
        		</form>
-       		
-       		
-			<table id="orders-table" title="orders">
-			</table>
+  			
        </div>
+    </div>
+    <div class="row-fluid">
+    	<div id="data-grid" class="span8 offset2">
+    		<table id="orders-table" title="orders">
+			</table>
+        </div>
     </div>
 </body>
 </html>

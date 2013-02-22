@@ -3,19 +3,17 @@
  */
 package com.soar.ax.entity.ovp;
 
-import java.util.List;
-
 /**
  * @author liuhb7
  *
  */
-public class Delivery {
+public class Serial {
 	
 	private String itemNumber;
 	private String number;
 	private long quanity;
 	
-    private List<Shipping> shippings;
+	
 	
 	public String getItemNumber() {
 		return itemNumber;
@@ -34,11 +32,5 @@ public class Delivery {
 	}
 	public void setQuanity(long quanity) {
 		this.quanity = quanity;
-	}
-	public List<Shipping> getShippings() {
-		return shippings;
-	}
-	public void setShippings(List<Shipping> shippings) {
-		this.shippings = shippings;
 	}
 }
