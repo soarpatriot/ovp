@@ -9,6 +9,7 @@ import java.util.List;
  * @author liuhb7
  *
  */
+
 public class OrderPage {
 	private long total;
 	private List<LineItem> rows;

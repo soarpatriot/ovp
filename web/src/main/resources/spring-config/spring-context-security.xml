@@ -29,6 +29,9 @@
     <http pattern="/users/**" security="none"/>
     <http pattern="/access/**" security="none"/>
     <http pattern="/order/**" security="none"/>
+    <http pattern="/article/**" security="none"/>
+    <http pattern="/article.xml" security="none"/>
+    
     <!-- 
     <http pattern="/right/**" security="none"/>
     

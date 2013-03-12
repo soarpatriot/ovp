@@ -107,8 +107,8 @@
     </div>
     <div class="row-fluid">
     	<div id="data-grid" class="span8 offset2">
-    		<table id="orders-table" title="orders">
-			</table>
+    		<div id="orders-table" class="span8 offset2" title="orders">
+			</div>
         </div>
     </div>
 </body>

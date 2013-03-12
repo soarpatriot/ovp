@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.soar.ax.base.BaseTest;
-import com.soar.ax.entity.ovp.SalesOrder;
+import com.soar.ax.entity.ovp.SalesOrderBefore;
 
 public class OrderServiceTest extends BaseTest{
 	
@@ -27,8 +27,8 @@ public class OrderServiceTest extends BaseTest{
 	
 	@Test
 	public void removeFromMongoByOrderNumber(){
-        List<SalesOrder> orders = null;
-        SalesOrder order = new SalesOrder();
+        List<SalesOrderBefore> orders = null;
+        SalesOrderBefore order = new SalesOrderBefore();
 		
         orders = findOrdersByUpdateDMTime();
         order = orders.get(0);
@@ -36,7 +36,7 @@ public class OrderServiceTest extends BaseTest{
 		Assert.assertNotNull(order.getSalesOrderNumber());
 		orderService.saveToMongo(order);
 		Query query = new Query(Criteria.where("salesOrderNumber").is(order.getSalesOrderNumber()));
-		List<SalesOrder> sales = orderService.getObjFromMongo(query, SalesOrder.class);
+		List<SalesOrderBefore> sales = orderService.getObjFromMongo(query, SalesOrderBefore.class);
 		Assert.assertNotNull(sales);
 		
 		if(!(sales.size()>0)){
@@ -44,7 +44,7 @@ public class OrderServiceTest extends BaseTest{
 		}
 		Assert.assertEquals(1, sales.size());
 		orderService.removeFromMongoByOrderNumber(order.getSalesOrderNumber());
-		List<SalesOrder> afterDeleteList = orderService.getObjFromMongo(query, SalesOrder.class);
+		List<SalesOrderBefore> afterDeleteList = orderService.getObjFromMongo(query, SalesOrderBefore.class);
 		Assert.assertNotNull(afterDeleteList);
 		Assert.assertEquals(0, afterDeleteList.size());
 		
@@ -54,8 +54,8 @@ public class OrderServiceTest extends BaseTest{
 	 * provided the test data
 	 * @return
 	 */
-	private List<SalesOrder> findOrdersByUpdateDMTime(){
-		List<SalesOrder> orders = null;
+	private List<SalesOrderBefore> findOrdersByUpdateDMTime(){
+		List<SalesOrderBefore> orders = null;
 		try{
 			Date start = new Date();
 			Date end = new Date();

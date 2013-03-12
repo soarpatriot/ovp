@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.soar.ax.dao.MyBatisGeneralDao;
-import com.soar.ax.entity.ovp.SalesOrder;
+import com.soar.ax.entity.ovp.SalesOrderBefore;
 import com.soar.ax.service.BaseService;
 
 /**
@@ -28,7 +28,7 @@ public class OrderService extends BaseService{
 	@Autowired
 	private MyBatisGeneralDao ovpMyBatisGeneralDao;
 
-	public List<SalesOrder> findOrderByStartAndEnd(int start,int end){
+	public List<SalesOrderBefore> findOrderByStartAndEnd(int start,int end){
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("startRowNum", start);
 		params.put("endRowNum", end);
@@ -36,7 +36,7 @@ public class OrderService extends BaseService{
 	}
 	
 	
-	public List<SalesOrder> findOrderByDMUpdateStartAndEnd(Date start,Date end){
+	public List<SalesOrderBefore> findOrderByDMUpdateStartAndEnd(Date start,Date end){
 		Map<String,Object> params = new HashMap<String,Object>();
 		
 		String startStr = DateUtils.format(start, "yyyy-MM-dd");
@@ -49,7 +49,7 @@ public class OrderService extends BaseService{
 	public void removeFromMongoByOrderNumber(String orderNumber){
 		Query query = new Query(Criteria.where("salesOrderNumber").is(orderNumber));
 		
-		removeFromMongo(query, SalesOrder.class);
+		removeFromMongo(query, SalesOrderBefore.class);
 	}
 	
 	public MyBatisGeneralDao getOvpMyBatisGeneralDao() {

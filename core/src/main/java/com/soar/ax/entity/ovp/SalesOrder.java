@@ -3,9 +3,9 @@
  */
 package com.soar.ax.entity.ovp;
 
+import java.util.Date;
+
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * <p>
@@ -40,184 +40,386 @@ import javax.persistence.Table;
  * 
  * </dl>
  * 
- * @author henry leu
+ * @author Soar
  * @see
  * @see
  */
-/*@Entity
-@Table(name = "MQT_RDL_SLS_ORDR_STS_SN ",schema="OVP")*/
-public class SalesOrder extends SalesOrderEntity{
 
-	private static final long serialVersionUID = -5120348807781246357L;
+public class SalesOrder {
+	 
+	@Column(name = "SLS_ORDR_NUM")
+    private String salesOrderNumber;
 	
-	public static final String DEFAULT_STATS_DTTM = ""; 
+    @Column(name = "ORDR_AMT_HDR")
+    private String purchaseAmount;
+    
+    @Column(name = "ORDR_ENT_TM")
+    private String orderEntryTime;
+
+    @Column(name = "ORDR_CHG_DT")
+    private Date orderChangeDate;
+
+    @Column(name = "ORDR_RCPT_DT")
+    private Date orderReceiptDate;
+    
+	@Column(name = "ORDR_TYPE")
+	private String orderType;
 	
-    @Column(name = "SRL_NUM")
-    private String serialNumber;
-        
-    @Column(name = "ASSET_TAGS_SD")
-    private String assetTagsSd;
-    
-    @Column(name = "MAC_ADDRES")
-    private String macAddresses;
-    
-    /**add this column,hubaozhong 2011-6-15 14:11 */
-    @Column(name = "MAC_ADDR_2")
-    private String macAddresses2;
-    
-    @Column(name = "UUID")
-    private String uuid;
-    
-    @Column(name = "WTY_STRT_DT")
-    private String warrantyStartDate;
-    //Added by zhx at 2011/10/13
-    @Column(name = "WTY_END_DT")
-    private String warrantyEndDate;
-    
-    /**
-     * @return the invoiceNumber
-     */
-    @Override
-    public String getInvoiceNumber() {
-        return invoiceNumber;
-    }
+	@Column(name = "ORDR_TYPE_DESC")
+	private String orderTypeDescription;
+	
+	@Column(name = "ORDR_STS_HDR")
+	private String orderStatusHeader;
+	
+	@Column(name = "HDR_CRNCY")
+	private String headerCurrency;
+	
+	@Column(name = "TOT_PRC_ORDR_TAX")
+	private String totalPurchaseOrderTax;
+
+	@Column(name = "DOC_DT")
+	private Date documentDate;
+
+	@Column(name = "ORDR_ENT_DT")
+	private Date orderEntryDate;
+	
+	@Column(name = "CUST_RQSTD_ARR_DT")
+	private Date customerRequestedArrivalDate;
+	
+	@Column(name = "CUST_PO_NUM")
+	private String customerPurchaseOrderNumber;
 
 
-    /**
-     * @param invoiceNumber the invoiceNumber to set
-     */
-    @Override
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
+	@Column(name = "ORDRG_METH")
+	private String orderingMethod;
+
+	@Column(name = "ORDRG_METH_DESC")
+	private String orderingMethodDescription;
 
 
-    /**
-     * @return the serialNumber
-     */
-    public String getSerialNumber() {
-        return serialNumber;
-    }
+	@Column(name = "TRAN_OR_RLTN")
+	private String transactionorRelation;
 
+	
+	@Column(name = "LOCAL_CRNCY")
+	private String localCurrency;
 
-    /**
-     * @param serialNumber the serialNumber to set
-     */
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-
-    /**
-     * @return the assetTagsSd
-     */
-    public String getAssetTagsSd() {
-        return assetTagsSd;
-    }
-
-
-    /**
-     * @param assetTagsSd the assetTagsSd to set
-     */
-    public void setAssetTagsSd(String assetTagsSd) {
-        this.assetTagsSd = assetTagsSd;
-    }
-
-
-    /**
-     * @return the macAddresses
-     */
-    public String getMacAddresses() {
-        return macAddresses;
-    }
-
-
-    /**
-     * @param macAddresses the macAddresses to set
-     */
-    public void setMacAddresses(String macAddresses) {
-        this.macAddresses = macAddresses;
-    }
-
-
-    /**
-     * @return the macAddresses2
-     */
-    public String getMacAddresses2() {
-        return macAddresses2;
-    }
-
-
-    /**
-     * @param macAddresses2 the macAddresses2 to set
-     */
-    public void setMacAddresses2(String macAddresses2) {
-        this.macAddresses2 = macAddresses2;
-    }
-
-
-    /**
-     * @return the uuid
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-
-    /**
-     * @param uuid the uuid to set
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-
-    /**
-     * @return the warrantyStartDate
-     */
-    public String getWarrantyStartDate() {
-        return warrantyStartDate;
-    }
-
-
-    /**
-     * @param warrantyStartDate the warrantyStartDate to set
-     */
-    public void setWarrantyStartDate(String warrantyStartDate) {
-        this.warrantyStartDate = warrantyStartDate;
-    }
-
-
-    /**
-     * @return the warrantyEndDate
-     */
-    public String getWarrantyEndDate() {
-        return warrantyEndDate;
-    }
-
-
-    /**
-     * @param warrantyEndDate the warrantyEndDate to set
-     */
-    public void setWarrantyEndDate(String warrantyEndDate) {
-        this.warrantyEndDate = warrantyEndDate;
-    }
-
+	@Column(name = "DOC_CRNCY")
+	private String documentCurrency;
 	/**
-     * @return the sourceSystem
-     */
-    @Override
-    public String getSourceSystem() {
-        return sourceSystem;
-    }
+	 * Base LOCAL_CRNCY
+	 */
+	@Column(name = "TOT_AMT_IN_LOCAL_CRNCY")
+	private String toltalAmountInLocCurrency;
+	/**
+	 * Base DOC_CRNCY
+	 */
+	@Column(name = "TOT_AMT_IN_DOC_CRNCY")
+	private String toltalAmountInDocCurrency;
+
+	@Column(name = "SHIP_ORDR_NUM")
+	private String shipAmount;
+
+	@Column(name = "TAX_ORDR_NUM")
+	private String taxAmount;
+
+	@Column(name = "REC_FEE")
+	private String recyclingFees;
+
+	@Column(name = "CUST_RQSTD_ARR_DT_ITEM")
+	private Date itemCrad;
+    
+    @Column(name = "SOS_ORDR_NUM")
+    private String sosOrderNumber;
+    
+    @Column(name = "SOLD_TO_CUST_NUM")
+    private String soldToCustomerNumber;
+
+    @Column(name = "SOLD_TO_CUST_NM")
+    private String soldToCustomerName;
+
+    @Column(name = "SOLD_TO_CUST_NM2")
+    private String soldToCustomerName2;
+
+    @Column(name = "SOLD_TO_CUST_NM3")
+    private String soldToCustomerName3;
+
+    @Column(name = "SOLD_TO_CUST_NM4")
+    private String soldToCustomerName4;
+
+    
+    @Column(name = "CRDT_CARD_TYPE")
+    private String creditCardType;
+
+    @Column(name = "CRDT_CARD_LAST_4_DIG")
+    private String creditCardLast4Digit;
+    
+    
+	public String getSalesOrderNumber() {
+		return salesOrderNumber;
+	}
+
+	public void setSalesOrderNumber(String salesOrderNumber) {
+		this.salesOrderNumber = salesOrderNumber;
+	}
+
+	public String getPurchaseAmount() {
+		return purchaseAmount;
+	}
+
+	public void setPurchaseAmount(String purchaseAmount) {
+		this.purchaseAmount = purchaseAmount;
+	}
+
+	public String getOrderEntryTime() {
+		return orderEntryTime;
+	}
+
+	public void setOrderEntryTime(String orderEntryTime) {
+		this.orderEntryTime = orderEntryTime;
+	}
+
+	public Date getOrderChangeDate() {
+		return orderChangeDate;
+	}
+
+	public void setOrderChangeDate(Date orderChangeDate) {
+		this.orderChangeDate = orderChangeDate;
+	}
+
+	public Date getOrderReceiptDate() {
+		return orderReceiptDate;
+	}
+
+	public void setOrderReceiptDate(Date orderReceiptDate) {
+		this.orderReceiptDate = orderReceiptDate;
+	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
+	public String getOrderTypeDescription() {
+		return orderTypeDescription;
+	}
+
+	public void setOrderTypeDescription(String orderTypeDescription) {
+		this.orderTypeDescription = orderTypeDescription;
+	}
+
+	public String getOrderStatusHeader() {
+		return orderStatusHeader;
+	}
+
+	public void setOrderStatusHeader(String orderStatusHeader) {
+		this.orderStatusHeader = orderStatusHeader;
+	}
+
+	public String getHeaderCurrency() {
+		return headerCurrency;
+	}
+
+	public void setHeaderCurrency(String headerCurrency) {
+		this.headerCurrency = headerCurrency;
+	}
+
+	public String getTotalPurchaseOrderTax() {
+		return totalPurchaseOrderTax;
+	}
+
+	public void setTotalPurchaseOrderTax(String totalPurchaseOrderTax) {
+		this.totalPurchaseOrderTax = totalPurchaseOrderTax;
+	}
+
+	public Date getDocumentDate() {
+		return documentDate;
+	}
+
+	public void setDocumentDate(Date documentDate) {
+		this.documentDate = documentDate;
+	}
+
+	public Date getOrderEntryDate() {
+		return orderEntryDate;
+	}
+
+	public void setOrderEntryDate(Date orderEntryDate) {
+		this.orderEntryDate = orderEntryDate;
+	}
+
+	public Date getCustomerRequestedArrivalDate() {
+		return customerRequestedArrivalDate;
+	}
+
+	public void setCustomerRequestedArrivalDate(Date customerRequestedArrivalDate) {
+		this.customerRequestedArrivalDate = customerRequestedArrivalDate;
+	}
+
+	public String getCustomerPurchaseOrderNumber() {
+		return customerPurchaseOrderNumber;
+	}
+
+	public void setCustomerPurchaseOrderNumber(String customerPurchaseOrderNumber) {
+		this.customerPurchaseOrderNumber = customerPurchaseOrderNumber;
+	}
 
 
-    /**
-     * @param sourceSystem the sourceSystem to set
-     */
-    @Override
-    public void setSourceSystem(String sourceSystem) {
-        this.sourceSystem = sourceSystem;
-    }
+	public String getOrderingMethod() {
+		return orderingMethod;
+	}
+
+	public void setOrderingMethod(String orderingMethod) {
+		this.orderingMethod = orderingMethod;
+	}
+
+	public String getOrderingMethodDescription() {
+		return orderingMethodDescription;
+	}
+
+	public void setOrderingMethodDescription(String orderingMethodDescription) {
+		this.orderingMethodDescription = orderingMethodDescription;
+	}
+
+
+	public String getTransactionorRelation() {
+		return transactionorRelation;
+	}
+
+	public void setTransactionorRelation(String transactionorRelation) {
+		this.transactionorRelation = transactionorRelation;
+	}
+
+
+	public String getLocalCurrency() {
+		return localCurrency;
+	}
+
+	public void setLocalCurrency(String localCurrency) {
+		this.localCurrency = localCurrency;
+	}
+
+	public String getDocumentCurrency() {
+		return documentCurrency;
+	}
+
+	public void setDocumentCurrency(String documentCurrency) {
+		this.documentCurrency = documentCurrency;
+	}
+
+	public String getToltalAmountInLocCurrency() {
+		return toltalAmountInLocCurrency;
+	}
+
+	public void setToltalAmountInLocCurrency(String toltalAmountInLocCurrency) {
+		this.toltalAmountInLocCurrency = toltalAmountInLocCurrency;
+	}
+
+	public String getToltalAmountInDocCurrency() {
+		return toltalAmountInDocCurrency;
+	}
+
+	public void setToltalAmountInDocCurrency(String toltalAmountInDocCurrency) {
+		this.toltalAmountInDocCurrency = toltalAmountInDocCurrency;
+	}
+
+	public String getShipAmount() {
+		return shipAmount;
+	}
+
+	public void setShipAmount(String shipAmount) {
+		this.shipAmount = shipAmount;
+	}
+
+	public String getTaxAmount() {
+		return taxAmount;
+	}
+
+	public void setTaxAmount(String taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	public String getRecyclingFees() {
+		return recyclingFees;
+	}
+
+	public void setRecyclingFees(String recyclingFees) {
+		this.recyclingFees = recyclingFees;
+	}
+
+	public Date getItemCrad() {
+		return itemCrad;
+	}
+
+	public void setItemCrad(Date itemCrad) {
+		this.itemCrad = itemCrad;
+	}
+
+	public String getSosOrderNumber() {
+		return sosOrderNumber;
+	}
+
+	public void setSosOrderNumber(String sosOrderNumber) {
+		this.sosOrderNumber = sosOrderNumber;
+	}
+
+	public String getSoldToCustomerNumber() {
+		return soldToCustomerNumber;
+	}
+
+	public void setSoldToCustomerNumber(String soldToCustomerNumber) {
+		this.soldToCustomerNumber = soldToCustomerNumber;
+	}
+
+	public String getSoldToCustomerName() {
+		return soldToCustomerName;
+	}
+
+	public void setSoldToCustomerName(String soldToCustomerName) {
+		this.soldToCustomerName = soldToCustomerName;
+	}
+
+	public String getSoldToCustomerName2() {
+		return soldToCustomerName2;
+	}
+
+	public void setSoldToCustomerName2(String soldToCustomerName2) {
+		this.soldToCustomerName2 = soldToCustomerName2;
+	}
+
+	public String getSoldToCustomerName3() {
+		return soldToCustomerName3;
+	}
+
+	public void setSoldToCustomerName3(String soldToCustomerName3) {
+		this.soldToCustomerName3 = soldToCustomerName3;
+	}
+
+	public String getSoldToCustomerName4() {
+		return soldToCustomerName4;
+	}
+
+	public void setSoldToCustomerName4(String soldToCustomerName4) {
+		this.soldToCustomerName4 = soldToCustomerName4;
+	}
+
+	public String getCreditCardType() {
+		return creditCardType;
+	}
+
+	public void setCreditCardType(String creditCardType) {
+		this.creditCardType = creditCardType;
+	}
+
+	public String getCreditCardLast4Digit() {
+		return creditCardLast4Digit;
+	}
+
+	public void setCreditCardLast4Digit(String creditCardLast4Digit) {
+		this.creditCardLast4Digit = creditCardLast4Digit;
+	}
 
 }

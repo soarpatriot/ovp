@@ -38,6 +38,7 @@ public class ArticleClient {
 	public List<Category> postCategories() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("name", "jizhong");
+		
 		return restTemplate.postForObject(articleServiceUrl + "addarticle/{name}", null, List.class, params);
 
 	}

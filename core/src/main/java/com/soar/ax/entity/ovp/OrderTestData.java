@@ -72,14 +72,15 @@ public class OrderTestData {
 	public static List<Delivery> deliveryData(){
 		List<Delivery> deliveries = new ArrayList<Delivery>();
 		Delivery d1 = new Delivery();
-		d1.setItemNumber("0010");
-		d1.setNumber("5576431");
-		d1.setQuanity(20);
+		d1.setDeliveryNumber("0010");
+		d1.setDeliveryNumber("5576431");
+		d1.setDeliveryBlockHeader("sdf");
 		
 		Delivery d2 = new Delivery();
-		d2.setItemNumber("0020");
-		d2.setNumber("54576431");
-		d2.setQuanity(10);
+		d1.setDeliveryNumber("0020");
+		d1.setDeliveryNumber("557643dd");
+		d1.setDeliveryBlockHeader("sdf");
+		
 		
 		deliveries.add(d1);
 		deliveries.add(d2);
@@ -90,13 +91,13 @@ public class OrderTestData {
 	public static List<LineItem> itemData(){
 		List<LineItem> lineItems = new ArrayList<LineItem>();
 		LineItem item1 = new LineItem();
-		item1.setProductid("idea pad");
-		item1.setListprice("123.12");
+		item1.setProductDescription("idea pad");
+		item1.setUnitPrice("123.12");
 		item1.setDeliveries(deliveryData());
 		
 		LineItem item2= new LineItem();
-		item2.setProductid("think");
-		item2.setListprice("43.12");
+		item2.setProductDescription("think");
+		item2.setUnitPrice("43.12");
 		item2.setDeliveries(deliveryData());
 		
 		lineItems.add(item1);

@@ -101,10 +101,12 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 		}
 		
 		$.fn.datagrid.defaults.view.insertRow.call(this, target, index, row);
+	
 		
 		_insert(true);
 		_insert(false);
 		
+		//alert("ss");
 		this.addExpandColumn(target, index);
 		this.canUpdateDetail = true;
 		
@@ -122,7 +124,7 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 				var newDetail = tr.next().next().clone();
 			}
 			tr.appendTo(newTable.children('tbody'));
-			newDetail.insertAfter(tr);
+			newDetail.insertAfter(tr);liu
 			newDetail.hide();
 			if (!frozen){
 				newDetail.find('div.datagrid-row-detail').html(opts.detailFormatter.call(target, index, row));

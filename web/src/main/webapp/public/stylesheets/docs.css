@@ -186,3 +186,7 @@ body{
     width: 100%;
 }
 
+/*grid*/
+.gird-div{
+	overflow-y:visible;
+}
