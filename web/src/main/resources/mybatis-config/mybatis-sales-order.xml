@@ -19,6 +19,7 @@
 		</where>
     </select>
     <select id="findOrderInfoByOrderNumber" parameterType="map" resultType="salesOrder">
+
 		SELECT 	
 			item.SLS_ORDR_LINE_NUM as salesOrderLineItemNumber, 
 			item.ORDR_CTGRY as orderCategory, 
@@ -148,8 +149,53 @@
 			crm.CNTRC_NUM 	   as contractNumber,
 			crm.CNSMR_ID 	   as consumerId,
 			crm.END_CUST_CHM_NUM as endCustomerChmNumber,
-			crm.END_CUST_CHM_NM  as endcustomerChmName
-
+			crm.END_CUST_CHM_NM  as endcustomerChmName,
+			
+			delivery.DLVRY_NUM as deliveryNumber, 
+			delivery.DLVRY_ITEM_NUM as deliveryItemNumber, 
+			delivery.SOS_DLVRY_NUM as sosDeliveryNumber, 
+			delivery.DLVRD_QTY as deliveredQuantity, 
+			delivery.CARR_CD as carrierCode, 
+			delivery.CARR_NM as carrierName, 
+			delivery.CARR_PHN_DESC_1 as carrierPhoneDescription1, 
+			delivery.CARR_PHN_DESC_2 as carrierPhoneDescription2, 
+			delivery.CARR_PHN_NUM_1 as carrierPhoneNumber1, 
+			delivery.CARR_PHN_NUM_2 as carrierPhoneNumber2, 
+			delivery.SHPNG_SRC as shippingSource, 
+			delivery.CT_ORDR_ENT_TO_SHIP_DT_BSNS as ctOrderEntryToShipDateBusiness, 
+			delivery.CT_ORDR_ENT_TO_SHIP_DT_CAL as ctOrderEntryToShipDateCalendar, 
+			delivery.CT_ORDR_RCPT_TO_SHIP_DT_BSNS as ctShipDateBus, 
+			delivery.CT_ORDR_RCPT_TO_SHIP_DT_CAL as ctShipDateCalendar, 
+			delivery.SOS_ORDR_NUM as sosOrderNumber, 
+			delivery.CARR_PICK_UP_DT as carrierPickUpDate, 
+			delivery.MODE_OF_TRSPN as modeOfTransportation, 
+			delivery.RTE as route,
+			
+			blg.INVC_ITEM_NUM as invoiceItemNumber,
+			blg.PLNT_DLVRY_NUM as planDeliveryNumber,
+			blg.PLNT_DLVRY_ITEM_NUM as planDeliveryItemNumber,
+			blg.SERIES as series, 
+			blg.NFENUM as notFisca,
+			
+			
+			acct.AR_DUE_DT as arDueDate, 
+			acct.AR_PYMT_TERM as arPaymentTerm, 
+			acct.CASH_CLRG_DT as cashClearanceDate, 
+			acct.AR_RECV_DT as arReceivingDate, 
+			acct.DSPUT_CTGRY_CD as disputeCategoryCode, 
+			acct.DSPUT_CTGRY_DESC as disputeCategoryDesc, 
+			acct.DSPUT_RSN_CD as disputeReasonCode, 
+			acct.DSPUT_RSN_DESC as disputeReasonDesc, 
+			acct.DSPUT_ROOT_CAUSE_CD as disputeRootCauseCode, 
+			acct.DSPUT_ROOT_CAUSE_DESC as disputeRootCauseDesc,
+			
+			acct.PAYMNT_DESC as paymentDescription,
+			acct.LOCAL_CRNCY as localCurrency, 
+			acct.DOC_CRNCY as documentCurrency, 
+			acct.TOT_AMT_IN_LOCAL_CRNCY as toltalAmountInLocCurrency, 
+			acct.TOT_AMT_IN_DOC_CRNCY as toltalAmountInDocCurrency 
+			
+			
 		FROM 
 			OVPDB_W2.dbo.IDL_SLS_ORDR_ITEM item 
 				left join OVPDB_W2.dbo.IDL_SLS_ORDR_CRDT_CARD card
@@ -164,6 +210,17 @@
 				left join OVPDB_W2.dbo.IDL_CRM_SLS_ORDR_ITEM crm
 				on item.SLS_ORDR_NUM = crm.SLS_ORDR_NUM and item.SLS_ORDR_LINE_NUM = crm.SLS_ORDR_LINE_NUM	
 				
+				left join ovpdb_w2.dbo.IDL_DLVRY_ITEM delivery
+				on item.SLS_ORDR_NUM = delivery.SLS_ORDR_NUM and item.SLS_ORDR_LINE_NUM = delivery.SLS_ORDR_LINE_NUM
+				
+				left join ovpdb_w2.dbo.IDL_BLG_ITEM blg
+				on item.SLS_ORDR_NUM = blg.SLS_ORDR_NUM and item.SLS_ORDR_LINE_NUM = blg.SLS_ORDR_LINE_NUM
+			
+			,ovpdb_w2.dbo.IDL_BLG_ITEM blgItem
+				
+				left join OVPDB_W2.dbo.IDL_CUST_ACCT_DOC acct 
+				on blgItem.INVC_ITEM_NUM = acct.INVC_ITEM_NUM and blgItem.INVC_NUM = acct.INVC_NUM 
+
 				
 						
     </select>
