@@ -193,9 +193,20 @@
 			acct.LOCAL_CRNCY as localCurrency, 
 			acct.DOC_CRNCY as documentCurrency, 
 			acct.TOT_AMT_IN_LOCAL_CRNCY as toltalAmountInLocCurrency, 
-			acct.TOT_AMT_IN_DOC_CRNCY as toltalAmountInDocCurrency 
+			acct.TOT_AMT_IN_DOC_CRNCY as toltalAmountInDocCurrency, 
 			
+			tckg.CARR_TCKG_NUM as carrierTrackingNumber, 
+			tckg.DLVRY_ITEM_NUM as deliveryItemNumber, 
+			tckg.CARR_TCKG_QTY as carrierTrackingQuantity,
 			
+
+			serial.SRL_NUM as serialNumber, 
+			serial.ASSET_TAGS_SD as assetTagsSd, 
+			serial.MAC_ADDRES as macAddresses, 
+			serial.MAC_ADDR_2 as macAddresses2, 
+			serial.UUID as uuid, 
+			serial.WTY_STRT_DT as warrantyStartDate, 
+			serial.WTY_END_DT as warrantyEndDate
 		FROM 
 			OVPDB_W2.dbo.IDL_SLS_ORDR_ITEM item 
 				left join OVPDB_W2.dbo.IDL_SLS_ORDR_CRDT_CARD card
@@ -220,9 +231,16 @@
 				
 				left join OVPDB_W2.dbo.IDL_CUST_ACCT_DOC acct 
 				on blgItem.INVC_ITEM_NUM = acct.INVC_ITEM_NUM and blgItem.INVC_NUM = acct.INVC_NUM 
-
-				
-						
+			,ovpdb_w2.dbo.IDL_DLVRY_ITEM dvly
+			    left join OVPDB_W2.dbo.IDL_DLVRY_TCKG tckg
+			    on dvly.DLVRY_NUM = tckg.DLVRY_NUM and dvly.DLVRY_ITEM_NUM = tckg.DLVRY_ITEM_NUM 
+   			,OVPDB_W2.dbo.IDL_DLVRY_TCKG tracking
+			    left join OVPDB_W2.dbo.IDL_DLVRY_TCKG_SN tckg_sn
+			    on tracking.DLVRY_NUM = tckg_sn.DLVRY_NUM and tracking.DLVRY_ITEM_NUM = tckg_sn.DLVRY_ITEM_NUM 	
+			
+		    ,OVPDB_W2.dbo.IDL_DLVRY_TCKG_SN tckging_sn
+			    left join OVPDB_W2.dbo.IDL_SRLZED_MATL_INFO serial
+			    on tckging_sn.SRL_NUM = serial.SRL_NUM				
     </select>
     
      
